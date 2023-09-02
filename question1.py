@@ -15,8 +15,8 @@ fundamental_amplitude = 1.0
 fundamental_phase = 0.0
 fundamental_wave = fundamental_amplitude * np.sin(2 * np.pi * fundamental_freq * t + fundamental_phase)
 
-overtone_amplitudes = [0.6, 0.3]  # Vary the amplitudes as needed
-overtone_phases = [np.pi / 4, np.pi / 2]  # Vary the phases as needed
+overtone_amplitudes = [0.5, 0.3]  # Vary the amplitudes as needed
+overtone_phases = [np.pi , np.pi / 2]  # Vary the phases as needed
 overtone_waves = []
 
 for i, overtone_freq in enumerate(overtone_freqs):
@@ -54,6 +54,10 @@ plt.legend()
 
 plt.tight_layout()
 plt.show()
+
+# Report the input frequencies and phases
+print(f'Input Frequencies: Fundamental = {fundamental_freq} Hz, Overtones = {overtone_freqs} Hz')
+print(f'Input Phases: Fundamental = {fundamental_phase} radians, Overtones = {overtone_phases} radians')
 
 # Report the input frequencies and phases
 print(f'Input Frequencies: Fundamental = {fundamental_freq} Hz, Overtones = {overtone_freqs} Hz')
