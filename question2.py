@@ -1,36 +1,37 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Parameters
-frequency = 33  # Frequency in Hz
-duration = 1    # Duration in seconds
-sampling_rate = 1000  # Sampling rate in samples per second
-
+f = 33.0  # Fundamental frequency (Hz)
+A = 1.0   # Amplitude of the fundamental frequency
+n_max = 50 # Maximum number of overtones
+T = 1.0   # Time duration in seconds
+def sawtooth_wave(t):
+    wave = 0.0
+    for n in range(1, n_max + 1):
+        wave += (A / n) * np.sin(2 * np.pi * n * f * t)
+    return wave
+def square_wave(t):
+    wave = 0.0
+    for n in range(1, n_max + 1):
+        if n % 2 == 1:  # Odd harmonics
+            wave += (A / n) * np.sin(2 * np.pi * n * f * t)
+    return wave
+def triangular_wave(t):
+    wave = 0.0
+    for n in range(1, n_max + 1):
+        if n % 2 == 1:  # Odd harmonics
+            wave += (A / (n**2)) * np.cos(2 * np.pi * n * f * t)
+    return wave
 # Generate time values
-t = np.linspace(0, duration, int(sampling_rate * duration))
+t = np.linspace(0, T, int(1000 * T))  # High-resolution time values for plotting
 
-# Function to generate a sawtooth wave
-def sawtooth_wave(frequency, t):
-    T = 1 / frequency
-    return 2 * (t / T - np.floor(0.5 + t / T))
+# Generate the waveforms
+sawtooth = sawtooth_wave(t)
+square = square_wave(t)
+triangular = triangular_wave(t)
 
-# Function to generate a square wave
-def square_wave(frequency, t):
-    T = 1 / frequency
-    return 2 * (t / T - np.floor(0.5 + t / T)) > 0
-
-# Function to generate a triangular wave
-def triangular_wave(frequency, t):
-    T = 1 / frequency
-    return 2 * np.abs(2 * (t / T - np.floor(0.5 + t / T)) - 1) - 1
-
-# Generate the three waves
-sawtooth = sawtooth_wave(frequency, t)
-square = square_wave(frequency, t)
-triangular = triangular_wave(frequency, t)
-
-# Plot the waves
-plt.figure(figsize=(10, 6))
+# Plot the waveforms
+plt.figure(figsize=(12, 6))
 
 plt.subplot(3, 1, 1)
 plt.plot(t, sawtooth)
