@@ -1,0 +1,31 @@
+% Define your time-domain signal, for example, a simple sine wave
+fs = 1000;  % Sampling frequency (Hz)
+t = 0:1/fs:1;  % Time vector from 0 to 1 second
+f = 10;  % Frequency of the sine wave (Hz)
+signal = sin(2 * pi * f * t);
+
+% Compute the Fourier transform
+fourier_transform = fft(signal);
+
+% Calculate the frequency axis for plotting
+frequencies = fs * (0:(length(signal)/2)) / length(signal);
+
+% Plot the time-domain signal
+subplot(2, 1, 1);
+plot(t, signal);
+xlabel('Time (s)');
+ylabel('Amplitude');
+title('Time Domain');
+
+% Plot the frequency-domain signal
+subplot(2, 1, 2);
+plot(frequencies, abs(fourier_transform(1:length(frequencies))));
+xlabel('Frequency (Hz)');
+ylabel('Amplitude');
+title('Frequency Domain');
+
+% Adjust plot window
+xlim([0 fs/2]);
+
+% Show both plots
+shg;
